@@ -32,16 +32,24 @@
 
 <style lang="scss">
   .item {
-    position: relative;
+    display: grid;
+    grid-template-columns: repeat(10, minmax(10px, 1fr));
+    grid-template-rows: repeat(10, minmax(10px, 1fr));
 
-    & img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      min-width: 150px;
-      min-height: 150px;
-      object-fit: cover;
-    }
+    overflow: hidden;
+    max-height: 150px;
+  }
+
+  .item__play {
+    grid-area: 1 / 1 / -1 / -1;
+  }
+
+  .item__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
   }
 
   .item__play {
@@ -115,9 +123,12 @@
       class="item__play"
       href={`/api/play/${track.id}`}
       on:click|self|stopPropagation|preventDefault={onTrackClick}>
-      <img src={track.album.images[1]?.url} alt={`Cover art for ${track.album.name}`} />
+      <img
+        class="item__img"
+        src={track.album.images[1]?.url}
+        alt={`Cover art for ${track.album.name}`} />
     </a>
-    <p class="item__label">
+    <!-- <p class="item__label">
       <span class="artists">
         {#each track.artists as artist}
           <a class="artistlink" href="/artist?artistId={artist.id}">{artist.name}</a>
@@ -129,6 +140,6 @@
       <svg class="icon" aria-hidden="true">
         <use href="#icon-beatport" />
       </svg>
-    </a>
+    </a> -->
   </div>
 {/if}
